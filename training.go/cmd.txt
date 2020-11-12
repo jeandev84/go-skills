@@ -1,0 +1,33 @@
+Linux
+========================
+Creer les 2 dossiers
+$ mkdir -p gosourcefr/src
+
+
+$ vi .profile
+
+Ajouter
+export PATH=$PATH:/usr/local/gocoursefr/bin
+
+
+$ source .profile
+$ vi .bash_profile
+
+export GOPATH=$HOME/jeandev/usr/www/gocoursefr
+~
+
+
+$ source .bash_profile
+$ echo $GOPATH
+/home/jeandev/usr/www/gocoursefr
+
+==================================
+$ sudo apt install -f (f: force)
+
+
+
+
+
+
+
+

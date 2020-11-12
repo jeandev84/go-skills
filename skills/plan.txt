@@ -1,0 +1,27 @@
+
+User
+
+1. Ask to collect news for specific theme
+
+6. Requests stored
+
+7. Gets the topics
+
+
+Our API
+
+2. Requires sources
+
+4. Requests topics by sources
+
+
+
+News Articles
+
+3. Get list of specific sources
+
+5. Stores the topics
+
+
+repository:
+https://github.com/nikitasmall/grabber

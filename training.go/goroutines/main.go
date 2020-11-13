@@ -5,32 +5,64 @@ import (
 	"time"
 )
 
-// Longue operation
-func longOperation(duration int) { // duration in seconds
+// Ecrie dans mon channel : (c : channel)
+func ping(c chan string) {
 
-	// Endormir le process
-	time.Sleep(time.Duration(duration) * time.Second)
-	fmt.Printf("Operation finished! Took %d s\n", duration)
+	// on increment de 1 en 1 a chaque tour de boucle
+	for i := 1; ; i++ {
+		c <- fmt.Sprintf("ping %v", i)
+	}
 }
 
-// GOROUTINES
+// Ecrire dans mon channel
+func pong(c chan string) {
+
+	// on increment de 100 a 100 a chaque tour de boucle
+	for i := 100; ; i += 100 {
+		c <- fmt.Sprintf("pong %v", i)
+	}
+}
+
+// Lire mon channel
+func print(c chan string) {
+
+	// as While() {}
+	// on lit a l'interieur de mon channel et on stock dans msg
+	// Boucle infini
+	for {
+		msg := <-c
+		fmt.Println(msg)
+
+		// On attend une seconde entre chaque lecture
+		time.Sleep(1 * time.Second)
+	}
+}
+
+// GOROUTINES & CHANNELS
 // Entry point of application
 // $ go run main.go
 func main() {
 
-	fmt.Println("Starting first operation")
-	go longOperation(1)
+	// On declare un channel
+	c := make(chan string) // est une goroutine
+	go ping(c)
+	go pong(c)
+	go print(c)
 
-	fmt.Println("Starting second operation")
-	go longOperation(2)
-
-	time.Sleep(2 * time.Second)
+	// fin d'execution apres 10 seconds
+	time.Sleep(10 * time.Second)
 }
 
 /*
 ~/go/src/training.go/goroutines$ go run main.go
-Starting first operation
-Starting second operation
-Operation finished! Took 1 s
-Operation finished! Took 1 s
+ping 1
+pong 100
+ping 2
+pong 200
+ping 3
+pong 300
+ping 4
+pong 400
+ping 5
+pong 500
 */

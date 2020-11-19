@@ -116,8 +116,28 @@ func main() {
 $ go build && ./goweb
 id=1, title=Le seigneur des anneaux, author=J.R.R Tolken, pageCount=768
 id=2, title=Dune, author=Franck Herbet, pageCount=348
----------------------------
+--------------------------------------------------------------------------------
 book={1 Le seigneur des anneaux J.R.R Tolken 768}
 book={2 Dune Franck Herbet 348}
 Ping to database sussessful!
+--------------------------------------------------------------------------------
+[
+  {
+    "name": "Bob",
+    "email": "bob@golang.org",
+    "address": {
+      "street": "15 rue Hade",
+      "city": "Paris",
+      "country": "France"
+    }
+  },
+  {
+    "name": "Alice",
+    "email": "alice@golang.org",
+    "address": {
+      "street": "42 rue Elle",
+      "city": "Paris"
+    }
+  }
+]
 */

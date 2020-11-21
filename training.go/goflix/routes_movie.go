@@ -44,6 +44,13 @@ func (s *server) handleMovieList() http.HandlerFunc {
 
 }
 
+func (s *server) handleMovieDetail() http.HandlerFunc {
+
+	return func(w http.ResponseWriter, r *http.Request) {
+
+	}
+}
+
 // JSON Movie format JSON
 func mapMovieToJson(m *Movie) jsonMovie {
 

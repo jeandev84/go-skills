@@ -1,0 +1,66 @@
+package main
+
+import (
+	"flag"
+
+	"training.go/dictionary/dictionary"
+)
+
+/*
+ Install package:
+ On indique (3) petits points (...) pour telecharger les 3 sous petites dependences du package
+ $ go get github.com/dgraph-io/badger/...
+*/
+// Entry point
+// Le package "flag" permet de travailler avec la CLI en go
+// https://golang.org/flag/
+func main() {
+
+	// New Dictionary
+	d, err := dictionary.New("./badger")
+
+	handleErr(err)
+
+	defer d.Close()
+
+    Ajout d'une entry
+    // d.Add("golang", "A wonderful language")
+
+    Recuperation de la Base de donnees
+    entry, _ := d.Get("Golang")
+
+    Affichage de l'entry
+    fmt.Println(entry)
+
+   
+    d.Add("python", "An interpreted language")
+
+    // Recuperation de la Base de donnees
+    words, entries, _ := d.List()
+
+    // Affichage de l'entry (Parcourt de mots)
+    for _, word := range words {
+        fmt.Println(entries[word])
+    }
+    }
+
+    // Error Handler
+    func handleErr(err error) {
+
+        if err != nil {
+            fmt.Printf("Dictionary error:%v\n", err)
+            os.Exit(1)
+        }
+    }
+
+}
+
+
+Ajout d'une entry
+d.Add("golang", "A wonderful language")
+
+Recuperation de la Base de donnees
+entry, _ := d.Get("Golang")
+
+Affichage de l'entry
+fmt.Println(entry)

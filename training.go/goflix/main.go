@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 	"os"
 )
 
@@ -30,14 +32,29 @@ func run() error {
 		return err
 	}
 
-	movies, err := srv.store.GetMovies()
+	/*
+		code de test
+		movies, err := srv.store.GetMovies()
+
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("movies=%v\n", movies)
+	*/
+
+	defer srv.store.Close()
+
+	// On delegue l'ensemble des routes a mon routeur
+	http.HandleFunc("/", srv.serveHTTP)
+
+	log.Printf("Serving HTTP on port 9000")
+
+	err = http.ListenAndServe(":9000", nil)
 
 	if err != nil {
 		return err
 	}
 
-	fmt.Printf("movies=%v\n", movies)
-
-	defer srv.store.Close()
 	return nil
 }

@@ -20,7 +20,7 @@ func main() {
 
 Executer la commande ``$ go build .``
 Il sera generer un fichier gofix
-On peut alors lancer le programme de la sorte suivante: ``$ ./gofix``
+On peut alors lancer le programme de la sorte suivante: ``$ ./goflix``
 
 
 - 2. Installation packages 
@@ -28,3 +28,13 @@ On peut alors lancer le programme de la sorte suivante: ``$ ./gofix``
 ``mattn/go-sqlite3`` https://github.com/mattn/go-sqlite3
 
 - go get
+
+`` $ go build && ./goflix``
+
+- 3. Installation du package `` gorilla/mux `` pour le routing ``https://github.com/gorilla/mux``
+
+
+`` $ go get github.com/gorilla/mux ``
+
+
+

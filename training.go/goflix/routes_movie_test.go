@@ -45,6 +45,8 @@ func (t testStore) CreateMovie(m *Movie) error {
 	return nil
 }
 
+// Test Unitaire
+
 func TestMovieCreateUnit(t *testing.T) {
 
 	// Create server with Test DB
@@ -75,6 +77,41 @@ func TestMovieCreateUnit(t *testing.T) {
 	// f := srv.handleMovieCreate()
 	// f(w, r)
 	srv.handleMovieCreate()(w, r)
+
+	// Compare les codes status
+	assert.Equal(t, http.StatusOK, w.Code)
+}
+
+// Test Integration
+
+func TestMovieCreateIntegration(t *testing.T) {
+
+	// Create server with Test DB
+	srv := newServer()
+	srv.store = &testStore{}
+
+	// Prepare JSON BODY
+	p := struct {
+		Title       string `json:"title"`
+		ReleaseDate string `json:"release_date"`
+		Duration    int    `json:"duration"`
+		TrailerURL  string `json:"trailer_url"`
+	}{
+		Title:       "Inception",
+		ReleaseDate: "2010-07-18",
+		Duration:    148,
+		TrailerURL:  "http://url",
+	}
+
+	var buf bytes.Buffer
+	err := json.NewEncoder(&buf).Encode(p)
+
+	assert.Nil(t, err)
+
+	r := httptest.NewRequest("POST", "/api/movies/", &buf)
+	w := httptest.NewRecorder()
+
+	srv.serveHTTP(w, r)
 
 	// Compare les codes status
 	assert.Equal(t, http.StatusOK, w.Code)

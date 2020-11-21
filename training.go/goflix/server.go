@@ -52,3 +52,9 @@ func (s *server) respond(w http.ResponseWriter, _ *http.Request, data interface{
 		log.Printf("Cannot format json. err=%v\n", err)
 	}
 }
+
+// Decoder des donnes
+// v : values
+func (s *server) decode(w http.ResponseWriter, r *http.Request, v interface{}) error {
+	return json.NewDecoder(r.Body).Decode(v)
+}

@@ -13,12 +13,18 @@ import (
  - Close (fermer la connection)
 */
 type Store interface {
+
+	// Connection
 	Open() error
 	Close() error
 
+	// Movie methods
 	GetMovies() ([]*Movie, error)
 	GetMovieById(id int64) (*Movie, error)
 	CreateMovie(m *Movie) error
+
+	// User methods
+	FindUser(username string, password string) (bool, error)
 }
 
 type dbStore struct {
@@ -33,6 +39,13 @@ CREATE TABLE IF NOT EXISTS movie
 	release_date TEXT,
 	duration INTEGER,
 	trailer_url TEXT
+);
+
+CREATE TABLE IF NOT EXISTS user
+(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	username TEXT, 
+	password TEXT
 )
 `
 
@@ -94,4 +107,18 @@ func (store *dbStore) CreateMovie(m *Movie) error {
 
 	m.ID, err = res.LastInsertId()
 	return err
+}
+
+// Find User by username and password
+func (store *dbStore) FindUser(username string, password string) (bool, error) {
+
+	var count int
+
+	err := store.db.Get(&count, "SELECT COUNT(id) FROM user WHERE username=$1 AND password=$2", username, password)
+
+	if err != nil {
+		return false, nil
+	}
+
+	return count == 1, nil
 }

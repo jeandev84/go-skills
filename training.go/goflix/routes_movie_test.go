@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -43,6 +44,10 @@ func (t testStore) CreateMovie(m *Movie) error {
 	m.ID = t.movieId
 	t.movies = append(t.movies, m)
 	return nil
+}
+
+func (t testStore) FindUser(username string, password string) (bool, error) {
+	return true, nil
 }
 
 // Test Unitaire
@@ -109,6 +114,11 @@ func TestMovieCreateIntegration(t *testing.T) {
 	assert.Nil(t, err)
 
 	r := httptest.NewRequest("POST", "/api/movies/", &buf)
+
+	// get requette from request
+	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDYwMTE0NTYsImlhdCI6MTYwNjAwNzg1NiwidXNlcm5hbWUiOiJnb2xhbmcifQ.5F4sm9IUmoBw3qU8NYYtP5ji-7Cpd3T9xD67rEyPDA0"
+
+	r.Header.Set("Authorization", fmt.Sprintf("Bearer %v", token))
 	w := httptest.NewRecorder()
 
 	srv.serveHTTP(w, r)

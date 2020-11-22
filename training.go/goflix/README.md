@@ -48,3 +48,8 @@ Example on veut faire un log a chaque fois qu'un client execute une reponse
 - 5. JWT (JSON WEB TOKEN) `` https://jwt.io/ `` pour securiser des api
 
 Package go : `` github.com/dgrijalva/jwt-go ``
+
+
+# LUNCH GOFLIX WEB APPLICATION
+
+`` $ go build && ./goflix ``

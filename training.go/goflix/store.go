@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/jmoiron/sqlx"
@@ -117,8 +118,10 @@ func (store *dbStore) FindUser(username string, password string) (bool, error) {
 	err := store.db.Get(&count, "SELECT COUNT(id) FROM user WHERE username=$1 AND password=$2", username, password)
 
 	if err != nil {
-		return false, nil
+		return false, err
 	}
+
+	fmt.Println(count)
 
 	return count == 1, nil
 }

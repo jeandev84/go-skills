@@ -76,17 +76,6 @@ func (s *server) handleTokenCreate() http.HandlerFunc {
 			return
 		}
 
-		/*
-			if req.Username != "golang" || req.Password != "rocks" {
-
-				s.respond(w, r, responseError{
-					Error: "Invalid credentials",
-				}, http.StatusUnauthorized)
-
-				return
-			}
-		*/
-
 		if !found {
 
 			s.respond(w, r, responseError{

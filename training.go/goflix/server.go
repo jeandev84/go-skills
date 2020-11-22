@@ -8,6 +8,9 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Constantes
+const JWT_APP_KEY = "training.go"
+
 // struct server (application)
 type server struct {
 	router *mux.Router
@@ -53,7 +56,7 @@ func (s *server) respond(w http.ResponseWriter, _ *http.Request, data interface{
 	}
 }
 
-// Decoder des donnes
+// Decode est une methode generique qui decode du JSON
 // v : values
 func (s *server) decode(w http.ResponseWriter, r *http.Request, v interface{}) error {
 	return json.NewDecoder(r.Body).Decode(v)

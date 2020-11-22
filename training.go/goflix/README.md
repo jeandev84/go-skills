@@ -198,3 +198,11 @@ func (s *server) handleIndex() http.Handler {
    return implementation
 }
 */
+
+
+# ASPECT POUR ALLEZ PLUS LOIN DANS LE PROJECT GOFLIX
+- 1. Creer un system de pagination 
+- 2. Complexifier la BDD (genres, acteurs, realisateurs, notes) Movie
+- 3. Ajout d'une liste de souhaits qui sera associe a un utilisateur
+     Et donc les routes pour modifier cette liste
+- 4. Faire beaucoup tests http, routing

@@ -47,3 +47,5 @@ c := make(chan float64)
 go calculatePi(c) // execute dans une goroutine
 pi := <-c  // bloquant juesqu'a ce que calculatePi() ecrive dans c
 fmt.Println("Pi value is", pi) // output 3.1415926535...
+
+# DEADLOCK

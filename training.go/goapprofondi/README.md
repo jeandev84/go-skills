@@ -131,3 +131,22 @@ func TestIncTable(t *testing.T) {
 
 # LANCER TEST 
 `` go test . ``
+
+# BenchmarkPrint
+
+
+// La fonction commence par BenchmarkXxxx
+// Elle prend en parametre un type testing.B
+func BenchmarkPrint(b *testing.B) {
+    
+    // La boucle pour executer le Benchmark
+    for i := 0; i < b.N; i++ {
+        
+        // Le corps de ce que l'on veut mesurer
+        fmt.Sprintf("Hi Gophers")
+    }
+}
+
+Excecuter Benchmark:
+. dossier courant
+`` go test -bench=. ``

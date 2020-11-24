@@ -1,0 +1,8 @@
+2020/11/24 22:54:06 Hello gophers!
+2020/11/24 22:55:28 Hello gophers!
+2020/11/24 22:55:28 Output in logs.txt
+[INFO]2020/11/24 23:07:36 main.go:25: Message d'info
+[INFO] 2020/11/24 23:08:14 main.go:25: Message d'info
+[INFO] 2020/11/24 23:10:40 main.go:25: Message d'info
+[WARNING] 2020/11/24 23:10:40 main.go:26: Attention, le fichier n'existe pas
+[ERROR] 2020/11/24 23:10:40 main.go:27: Connexion a la BDD impossible

@@ -1,0 +1,28 @@
+package main
+
+import (
+    "log"
+    "os"
+)
+
+func main() {
+    // Write to a file
+    // If the file doesn't exist, create it or append to the file
+    file, err := os.OpenFile("logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    log.SetOutput(file)
+    log.Println("Hello world!")
+
+    // Use custom loggers
+    initLoggers()
+    InfoLogger.Println("Info message")
+    WarningLogger.Println("Warning message")
+    ErrorLogger.Println("Error message")
+
+    // A logging library
+    // https://github.com/Sirupsen/logrus
+}
+

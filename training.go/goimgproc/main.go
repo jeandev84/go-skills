@@ -12,13 +12,10 @@ import (
 // $ go run main.go
 func main() {
 
-	/*
-		f := task.BuildFileListSecond("./imgs")
-		fmt.Println(f)
-	*/
-
 	var f filter.Filter = filter.Grayscale{}
-	t := task.NewWaitGrpTask("./imgs", "output", f)
+
+	// t := task.NewWaitGrpTask("./imgs", "output", f)
+	t := task.NewChanTask("./imgs", "output", f, 4)
 
 	start := time.Now() // debut du temps du process
 	t.Process()

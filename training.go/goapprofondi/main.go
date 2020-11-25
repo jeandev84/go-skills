@@ -4,56 +4,65 @@ import (
 	"fmt"
 )
 
-const ERR_CODE_LOCKED = 1
-const ERR_CODE_CLOSED = 2
+// type alias
+type ErrorCode int
 
-// Error custom
-type AppError struct {
-	Code int
-	Err  error
+// Groupement de constante
+// iota c'est un mot cle de go qui va incrementer la valeur suvante de 1
+// en commencant par 0 par default
+// ERR_CODE_OK = iota + 1 // ici on le fait commencer par 1
+const (
+	ERR_CODE_OK ErrorCode = iota
+	ERR_CODE_NOT_FOUND
+	ERR_CODE_LOCKED
+	ERR_CODE_GENERIC
+)
+
+// Determine if error code is critical
+func (ec ErrorCode) IsCritical() bool {
+
+	return ec == ERR_CODE_LOCKED || ec == ERR_CODE_NOT_FOUND
 }
 
-// Implementation de l'interface error de Go
-func (e *AppError) Error() string {
-	return fmt.Sprintf("code=%v, error=%v", e.Code, e.Err)
+func isValid(ec ErrorCode) bool {
+	// voir ci on est dans la table d'enumeration de valeur
 }
 
-func process(input int) error {
-	if input == 0 {
+func (ec ErrorCode) String() string {
 
-		return &AppError{
-			Code: ERR_CODE_LOCKED,
-			Err:  fmt.Errorf("resource is locked"),
+	/*
+		switch ec {
+		case ERR_CODE_NOT_FOUND:
+			return "not found"
 		}
 
-	} else if input == 1 {
+		un struct anonyme
+		[...] la taille de mon tableau correspond
+		au 3 petits points
+	*/
 
-		return &AppError{
-			Code: ERR_CODE_CLOSED,
-			Err:  fmt.Errorf("resource is closed"),
-		}
-	}
+	return [...]string{
+		"ok",
+		"not found",
+		"locked",
+		"generic",
+	}[ec]
 
-	return nil
+}
+
+// Print error
+func printErrCode(c ErrorCode) {
+	fmt.Printf("code=%v, critical=%v, detail=%v\n",
+		c,
+		c.IsCritical(),
+		c)
 }
 
 // Entry point
 func main() {
 
-	err := process(1)
-
-	if err != nil {
-
-		fmt.Println(err)
-
-		re, ok := err.(*AppError)
-		if ok {
-			switch re.Code {
-			case ERR_CODE_LOCKED:
-				fmt.Println("Try again later")
-			case ERR_CODE_CLOSED:
-				fmt.Println("Resource has to be opened again")
-			}
-		}
-	}
+	// code := ERR_CODE_OK
+	// code := ERR_CODE_LOCKED
+	code := ERR_CODE_NOT_FOUND
+	printErrCode(code)
 }

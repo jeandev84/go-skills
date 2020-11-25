@@ -150,3 +150,45 @@ func BenchmarkPrint(b *testing.B) {
 Excecuter Benchmark:
 . dossier courant
 `` go test -bench=. ``
+
+
+
+# ERROR CUSTOM
+ En Go le type "error" n'est qu'une interface renvoyant un message d'erreur
+type error interface {
+    Error() string
+}
+
+
+type MyError struct {
+    Module string
+    Err error
+}
+
+
+func (e *MyError) Error() string {
+
+    return fmt.Sprintf("Module=%v, error=%v", e.Module, e.Err)
+}
+
+
+Utilisation de l'erreur custom
+
+func process() error {
+    return &MyError{
+        Module: "main",
+        Err: fmt.Errorf("Could not execute process()")
+    }
+}
+
+
+
+func main() {
+    
+    err := process()
+
+    if err != nil {
+        // Affiche Module=main, error=Cound not execute process()
+        fmt.Println(err)
+    }
+}

@@ -295,3 +295,15 @@ func main() {
 	code := ERR_CODE_OK
 	printErrCode(code)
 }
+
+
+# CROSS COMPILATION
+// Compiler ce programme comme suit
+// pour adapter a toute sorte de machine:
+// prefixer go build par `` env GOOS=linux GOARCH=amd64 ``
+
+- Linux
+`` env GOOS=linux GOARCH=amd64 go build ``
+
+- Windows
+`` env GOOS=windows GOARCH=amd64 go build ``
